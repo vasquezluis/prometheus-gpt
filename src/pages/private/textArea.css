@@ -1,0 +1,52 @@
+.container {
+  position: relative;
+}
+
+.textarea {
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  transition: height 0.2s; /* Add a smooth transition effect */
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #aaa;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.textarea::placeholder {
+  color: #999;
+}
+
+.textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 3px;
+}
+
+.textarea::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+
+/* ------> SCROLL BAL <------- */
+.hide_scrollbar::-webkit-scrollbar {
+  width: 0.5rem; /* Set the width of the scrollbar */
+  background-color: transparent; /* Set the background color of the scrollbar track */
+}
+
+.hide_scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Set the color of the scrollbar thumb */
+}
+
+.hide_scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: transparent; /* Set the color of the scrollbar thumb on hover */
+}
