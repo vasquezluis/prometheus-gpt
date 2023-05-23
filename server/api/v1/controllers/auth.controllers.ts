@@ -37,7 +37,7 @@ export const loginController = async (req: Request, res: Response) => {
         return res.json({
           message: "authData",
           token: token,
-          expiration: `Expires in ${expirationTime} from now`,
+          // expiration: `Expires in ${expirationTime} from now`,
           userData,
         });
       }

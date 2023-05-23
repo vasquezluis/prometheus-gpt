@@ -1,14 +1,10 @@
-import { Router, Request, Response } from 'express'
-import { response } from '../../../common/response'
+import { Router, Request, Response } from "express";
+import { response } from "../../../common/response";
 
-const router = Router()
+const router = Router();
 
-router.get('/api/v1/', ({ headers: { host } }: Request, res: Response) => {
-  const menu: { [key: string]: string } = {
-    chatgpt: `http://${host}/api/v1/chatgpt`
-  }
+router.get("/", (req: Request, res: Response) => {
+  res.redirect("/api/v1/api-docs");
+});
 
-  response.success(res, 200, 'api menu', menu)
-})
-
-export default router
+export default router;

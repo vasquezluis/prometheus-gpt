@@ -20,6 +20,8 @@ export const verifyToken = (
   jwt.verify(token, JWT_SECRET, (error: any, payload: any) => {
     if (error) return res.json({ message: error });
 
+    console.log(payload);
+
     if (payload.roles.includes("user")) {
       next();
     } else {
