@@ -10,6 +10,7 @@ import Chat from './pages/private/Chat'
 function ChatGPT () {
   const [user, setUser] = useState(null)
 
+  // function to login user
   const login = () => {
     // request done
     setUser({
@@ -20,11 +21,11 @@ function ChatGPT () {
     })
   }
 
+  // function to logout user
   const logout = () => setUser(null)
 
   return (
     <BrowserRouter>
-
       {user
         ? (
           <button onClick={logout}>Logout</button>
@@ -33,6 +34,7 @@ function ChatGPT () {
           <button onClick={login}>Login</button>
           )}
 
+      {/* Routes */}
       <Routes>
         <Route path='/' element={<Login />} />
         <Route
