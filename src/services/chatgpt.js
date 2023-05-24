@@ -10,7 +10,7 @@ export const fetchChatMessage = async (value) => {
   }
 
   try {
-    const response = await fetch('http://localhost:4000/api/v1/chatgpt/chat', options)
+    const response = await fetch('http://localhost:3000/api/v1/chatgpt/chat', options)
     const data = await response.json()
 
     return data?.body

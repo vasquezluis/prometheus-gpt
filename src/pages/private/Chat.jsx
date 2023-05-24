@@ -4,15 +4,10 @@ import { fetchChatMessage } from '../../services/chatgpt'
 import { TbArrowBigRightFilled } from 'react-icons/tb'
 
 const Chat = () => {
-  const [showSidebar, setShowSidebar] = useState(false)
   const [value, setValue] = useState('')
   const [message, setMessage] = useState(null)
   const [previousChat, setPreviousChat] = useState([])
   const [currentTitle, setCurrentTitle] = useState(null)
-
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar)
-  }
 
   // -> create new chat removing all data in page
   const createNewChat = () => {
@@ -21,13 +16,14 @@ const Chat = () => {
     setCurrentTitle(null)
   }
 
-  // -> select a chat from previous chat list
+  // -> select a chat from previous chat list and show the messages
   const handlePreviousChats = (uniqueTitle) => {
     setCurrentTitle(uniqueTitle)
     setMessage(null)
     setValue('')
   }
 
+  // -> fetch the message from the api usgin the value
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -40,23 +36,45 @@ const Chat = () => {
     }
   }
 
+  // useEffect when message is received or when a new chat is created
   useEffect(() => {
+    // the currentTitle is null, a value exists and a message exists, set the currentTitle
     if (!currentTitle && value && message) {
       setCurrentTitle(value)
     }
+    // if the currentTitle exists, a value exists and a message exists, set the previousChat
     if (currentTitle && value && message) {
-      setPreviousChat((prevChats) => [
-        ...prevChats,
+      // get al values of previousChat and add the new values
+      const updatedChat = [
+        ...previousChat,
         { title: currentTitle, role: 'user', content: value },
         { title: currentTitle, role: 'chat', content: message }
-      ])
-    }
-  }, [message, currentTitle])
+      ]
 
-  // TODO revisar
+      setPreviousChat(updatedChat)
+
+      // save updatedChat in localStorage
+      localStorage.setItem('chatMessages', JSON.stringify(updatedChat))
+    }
+  }, [message, currentTitle, value])
+
+  // Load previous chat messages from local storage on component mount
+  useEffect(() => {
+    const storedChatMessages = localStorage.getItem('chatMessages')
+    if (storedChatMessages) {
+      setPreviousChat(JSON.parse(storedChatMessages))
+    }
+  }, [])
+
+  // filter the previousChat to show the current title in sidebar
+  // by clicking the history, the messages of that current title will be shown
+
+  // currentChat is an array of objects with the same title
   const currentChat = previousChat.filter(
     (previousChat) => previousChat.title === currentTitle
   )
+
+  // filter the title of all chats with the same title, and get just one
   const uniqueTitles = Array.from(
     new Set(previousChat.map((previousChat) => previousChat.title))
   )
@@ -102,6 +120,7 @@ const Chat = () => {
         <div className='flex-1 bg-gray-200 overflow-y-auto mb-4'>
           {!currentTitle && <h1 className='text-center text-gray-300'>PrometheusGPT</h1>}
           <ul className='w-full p-0'>
+            {/* map all messages with the same title */}
             {currentChat?.map((chatMessage, index) => (
               <li
                 key={index}

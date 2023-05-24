@@ -19,6 +19,7 @@ const LoginForm = () => {
     mutationFn: authFunction,
     onSuccess: (data) => {
       console.log(data)
+      navigate('/chat')
     },
     onError: (error) => {
       console.log(error.message)
@@ -39,7 +40,7 @@ const LoginForm = () => {
 
   return (
     <Formik
-      initialValues={{ username: '', password: '' }}
+      initialValues={{ email: '', password: '' }}
       validationSchema={loginSchema}
       onSubmit={onSubmit}
     >
@@ -48,13 +49,13 @@ const LoginForm = () => {
           className='w-[400px] bg-slate-800 p-5 rounded-md'
         >
 
-          <h1 className='font-bold mb-3'>Login</h1>
+          <h1 className='text-2xl font-bold mb-3 text-white text-center'>Login</h1>
 
           <CustomInput
-            label='Usuario'
-            name='username'
+            label='Correo'
+            name='email'
             type='text'
-            placeholder='Introduce tu usuario'
+            placeholder='Introduce tu correo'
           />
 
           <CustomInput

@@ -26,18 +26,18 @@ function ChatGPT () {
 
   return (
     <BrowserRouter>
-      {user
+      {/* {user
         ? (
           <button onClick={logout}>Logout</button>
           )
         : (
           <button onClick={login}>Login</button>
-          )}
+          )} */}
 
       {/* Routes */}
       <Routes>
         <Route path='/' element={<Login />} />
-        <Route
+        {/* <Route
           path='/chat'
           element={
             <ProtectedRoute
@@ -47,7 +47,8 @@ function ChatGPT () {
               <Chat />
             </ProtectedRoute>
             }
-        />
+        /> */}
+        <Route path='/chat' element={<Chat />} />
       </Routes>
     </BrowserRouter>
   )

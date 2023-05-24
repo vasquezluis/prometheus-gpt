@@ -1,12 +1,16 @@
 import * as yup from 'yup'
 
-const regex = /^[^0-9]*$/
+// the email must belong to the company
+// -> toponmind.com
+// -> prometheus.com
+
+const regex = /^.*@(prometheus|toponmind|easygo)\.com$/
 
 export const loginSchema = yup.object().shape({
-  username: yup
+  email: yup
     .string()
-    .matches(regex, { message: 'El usuario no debe contener caracters numericos' })
-    .required('El usuario es requerido'),
+    .matches(regex, { message: 'El correo no pertenece a nuestra empresa 💔' })
+    .required('El correo es requerido'),
   password: yup
     .string()
     .required('La contraseña es requerida')
