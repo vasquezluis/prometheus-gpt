@@ -4,11 +4,11 @@ import { Request, Response } from "express";
 import { JWT_SECRET } from "../../../config/config";
 
 export const loginController = async (req: Request, res: Response) => {
-  const { user, password } = req.body;
+  const { username, password } = req.body;
   const expirationTime = "1d";
 
   try {
-    const result = await loginService(user);
+    const result = await loginService(username);
 
     if (!result) {
       return res.status(404).json({ message: "User not found" });
@@ -19,10 +19,8 @@ export const loginController = async (req: Request, res: Response) => {
     }
 
     const userData = {
-      id: result._id,
-      user: result.user,
-      roles: result.roles,
-      company: result.company,
+      id: result.id,
+      username: result.username,
     };
 
     jwt.sign(

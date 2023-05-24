@@ -2,10 +2,9 @@
  * * users interface <contract>
  */
 
-export interface Users {
-  user: string;
+export interface IUsers {
+  id: number;
+  username: string;
   password: string;
-  roles: [string];
-  company: string;
   active: boolean;
 }

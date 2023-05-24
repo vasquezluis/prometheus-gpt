@@ -1,11 +1,26 @@
-import { PORT } from "./config/config";
-import dbConnect from "./config/mongodb";
+import { PORT, sequelizeConfig } from "./config/config";
 import app from "./app";
 
-dbConnect().then(() => {
-  console.log("database connected");
-});
+import "./models/users.model";
 
-app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
-});
+async function main() {
+  try {
+    // aunthenticate database
+    await sequelizeConfig.authenticate();
+
+    //database sync
+    await sequelizeConfig.sync({ force: false });
+
+    console.log("Database connected");
+
+    app.listen(PORT, () => {
+      console.log(`Server listening on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+  }
+}
+
+main();
