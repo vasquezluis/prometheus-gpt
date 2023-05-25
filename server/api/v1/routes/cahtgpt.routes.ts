@@ -71,7 +71,7 @@ const router = Router();
  *       500:
  *        description: Server error.
  */
-router.get("/api/v1/chatgpt/models", verifyToken, getModels);
+router.get("/api/v1/chatgpt/models", getModels);
 
 /**
  * @swagger
@@ -107,6 +107,6 @@ router.get("/api/v1/chatgpt/models", verifyToken, getModels);
  *      500:
  *        description: Server error.
  */
-router.post("/api/v1/chatgpt/chat", verifyToken, chatgpt);
+router.post("/api/v1/chatgpt/chat", chatgpt);
 
 export default router;

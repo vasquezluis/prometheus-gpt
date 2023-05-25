@@ -1,16 +1,16 @@
 import { UsersModel } from "../../../models/users.model";
 import { IUsers } from "../../../interfaces/users.interface";
 
-export const loginService = async (user: string) => {
+export const loginService = async (userEmail: string) => {
   try {
     const userFound: any = await UsersModel.findOne({
-      where: { username: user },
+      where: { email: userEmail },
     });
 
     if (userFound) {
       const mappedUser: IUsers = {
         id: userFound.id,
-        username: userFound.username,
+        email: userFound.email,
         password: userFound.password,
         active: userFound.active,
       };

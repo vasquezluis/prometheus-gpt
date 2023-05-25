@@ -10,7 +10,7 @@ export const UsersModel = sequelizeConfig.define(
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
+    email: {
       type: DataTypes.STRING,
       unique: true,
     },
@@ -27,3 +27,5 @@ export const UsersModel = sequelizeConfig.define(
 );
 
 // TODO: relations with other tables
+// TODO: relation with message
+// TODO: realtion with companies
