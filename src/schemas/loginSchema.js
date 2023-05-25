@@ -3,6 +3,7 @@ import * as yup from 'yup'
 // the email must belong to the company
 // -> toponmind.com
 // -> prometheus.com
+// -> easygo.com
 
 const regex = /^.*@(prometheus|toponmind|easygo)\.com$/
 

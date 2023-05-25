@@ -25,8 +25,9 @@ function ChatGPT () {
   const logout = () => setUser(null)
 
   return (
-    <BrowserRouter>
-      {/* {user
+    <div className=''>
+      <BrowserRouter>
+        {/* {user
         ? (
           <button onClick={logout}>Logout</button>
           )
@@ -34,10 +35,10 @@ function ChatGPT () {
           <button onClick={login}>Login</button>
           )} */}
 
-      {/* Routes */}
-      <Routes>
-        <Route path='/' element={<Login />} />
-        {/* <Route
+        {/* Routes */}
+        <Routes>
+          <Route path='/' element={<Login />} />
+          {/* <Route
           path='/chat'
           element={
             <ProtectedRoute
@@ -48,9 +49,10 @@ function ChatGPT () {
             </ProtectedRoute>
             }
         /> */}
-        <Route path='/chat' element={<Chat />} />
-      </Routes>
-    </BrowserRouter>
+          <Route path='/chat' element={<Chat />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 

@@ -30,9 +30,7 @@ const LoginForm = () => {
   // values and actions are formik props
   const onSubmit = async (values, actions) => {
     try {
-      loginMutation.mutate({ username: values.username, password: values.password })
-
-      actions.reset()
+      loginMutation.mutate({ email: values.email, password: values.password })
     } catch (error) {
       console.log(error.message)
     }
