@@ -18,7 +18,7 @@ export const MessagesModel = sequelizeConfig.define(
       type: DataTypes.ENUM("user", "bot"),
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
   },
   {

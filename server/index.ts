@@ -2,6 +2,7 @@ import { PORT, sequelizeConfig } from "./config/config";
 import app from "./app";
 
 import "./models/users.model";
+import "./models/messages.model";
 
 async function main() {
   try {
@@ -9,7 +10,7 @@ async function main() {
     await sequelizeConfig.authenticate();
 
     //database sync
-    await sequelizeConfig.sync({ force: false });
+    await sequelizeConfig.sync({ force: true });
 
     console.log("Database connected");
 

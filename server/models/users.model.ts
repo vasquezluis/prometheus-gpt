@@ -1,6 +1,8 @@
 import { DataTypes } from "sequelize";
 import { sequelizeConfig } from "../config/config";
 
+import { MessagesModel } from "./messages.model";
+
 // users model for queries
 export const UsersModel = sequelizeConfig.define(
   "users",
@@ -27,5 +29,17 @@ export const UsersModel = sequelizeConfig.define(
 );
 
 // TODO: relations with other tables
-// TODO: relation with message
+
+// -> relation with message
+// * one to many relation
+// * one user can have many messages
+UsersModel.hasMany(MessagesModel, {
+  foreignKey: "userId",
+  sourceKey: "id",
+});
+MessagesModel.belongsTo(UsersModel, {
+  foreignKey: "userId",
+  targetKey: "id",
+});
+
 // TODO: realtion with companies

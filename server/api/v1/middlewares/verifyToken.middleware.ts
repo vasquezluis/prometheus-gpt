@@ -20,8 +20,7 @@ export const verifyToken = (
   jwt.verify(token, JWT_SECRET, (error: any, payload: any) => {
     if (error) return res.json({ message: error });
 
-    console.log(payload);
-
+    // TODO -> verificar si el usuario pertenece a ENUM(innovacion.ai, prometheus.com, easygo.com)
     if (payload.roles.includes("user")) {
       next();
     } else {

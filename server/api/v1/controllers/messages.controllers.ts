@@ -19,11 +19,10 @@ export const getItems = async (req: Request, res: Response) => {
 };
 
 export const createItem = async (req: Request, res: Response) => {
-  const { messages } = req.body;
-  console.log("messages en el controlador", messages);
+  const { messages, userId } = req.body;
 
   try {
-    const result = await createMessagesByUser(messages);
+    const result = await createMessagesByUser(messages, userId);
 
     response.success(res, 200, "Messages created!", result);
   } catch (error) {

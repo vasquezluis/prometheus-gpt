@@ -10,6 +10,7 @@ import indexRouter from "./api/v1/routes/index";
 import chatRouter from "./api/v1/routes/cahtgpt.routes";
 import authRouter from "./api/v1/routes/auth.routes";
 import messagesRouter from "./api/v1/routes/messages.routes";
+import usersRouter from "./api/v1/routes/users.routes";
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use(indexRouter);
 app.use(chatRouter);
 app.use(authRouter);
 app.use(messagesRouter);
+app.use(usersRouter);
 
 export default app;

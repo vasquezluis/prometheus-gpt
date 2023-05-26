@@ -1,3 +1,4 @@
+// -> ya no se usa, ahora se usa sequelize y MySQL
 import "dotenv/config";
 import { connect } from "mongoose";
 
