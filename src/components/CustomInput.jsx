@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useField } from 'formik'
 
 function CustomInput ({ label, ...props }) {
@@ -6,7 +7,7 @@ function CustomInput ({ label, ...props }) {
   return (
     <div className='flex flex-col justify-start w-full'>
       <label
-        className='block mb-2 text-sm font-medium text-gray-900 dark:text-white text-start'
+        className='block mb-2 text-sm font-medium text-gray-200  dark:text-white text-start'
         htmlFor=''
       >{label}
       </label>

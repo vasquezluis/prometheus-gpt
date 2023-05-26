@@ -2,7 +2,10 @@ import './textArea.css'
 
 import { useState, useEffect } from 'react'
 import { fetchChatMessage } from '../../services/chatgpt'
-import { getMessages, createMessages } from '../../services/messages'
+import { getMessagesByUserId, createMessages } from '../../services/messages'
+
+// * REDUX
+import { useSelector } from 'react-redux'
 
 // * components
 import Sidebar from '../../components/Sidebar'
@@ -16,6 +19,9 @@ const Chat = () => {
   const [previousChat, setPreviousChat] = useState([])
   const [currentTitle, setCurrentTitle] = useState(null)
   const [darkMode, setDarkMode] = useState(false)
+
+  // -> user state
+  const user = useSelector((state) => state.user)
 
   // -> create new chat removing all data in page
   const createNewChat = () => {
@@ -35,10 +41,8 @@ const Chat = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      console.log('value: ', value)
       const response = await fetchChatMessage(value)
       setMessage(response)
-      console.log('response: ', response)
     } catch (error) {
       console.log('error in submit: ', error.message)
     }
@@ -66,15 +70,15 @@ const Chat = () => {
         { title: currentTitle, role: 'user', content: value },
         { title: currentTitle, role: 'bot', content: message }
       ]
-      createMessages(data)
+      createMessages(data, user.id)
     }
   }, [message, currentTitle])
 
   // load previous chat messages from database on component mount
   useEffect(() => {
     const getPreviousChat = async () => {
-      const response = await getMessages()
-      if (response) {
+      const response = await getMessagesByUserId(user.id)
+      if (response.length !== undefined) {
         setPreviousChat(response)
       }
     }
@@ -85,13 +89,13 @@ const Chat = () => {
   // by clicking the history, the messages of that current title will be shown
 
   // currentChat is an array of objects with the same title
-  const currentChat = previousChat.filter(
+  const currentChat = previousChat?.filter(
     (previousChat) => previousChat.title === currentTitle
   )
 
   // filter the title of all chats with the same title, and get just one
   const uniqueTitles = Array.from(
-    new Set(previousChat.map((previousChat) => previousChat.title))
+    new Set(previousChat?.map((previousChat) => previousChat.title))
   )
 
   return (
@@ -126,6 +130,7 @@ const Chat = () => {
               value={value}
               setValue={setValue}
             />
+
           </footer>
 
         </div>

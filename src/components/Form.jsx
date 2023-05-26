@@ -10,8 +10,13 @@ import { authFunction } from '../services/auth'
 // * REACT-ROUTER-DOM
 import { useNavigate } from 'react-router-dom'
 
+// * REDUX
+import { useDispatch } from 'react-redux'
+import { setUser } from '../reducers/userSlice'
+
 const LoginForm = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   // React-query mutation to login
   // Uses auth Function in services auth.js
@@ -19,10 +24,28 @@ const LoginForm = () => {
     mutationFn: authFunction,
     onSuccess: (data) => {
       console.log(data)
+
+      // Set user in user state
+      dispatch(setUser({
+        id: data.userData.id,
+        email: data.userData.email,
+        token: data.token
+      }))
+
+      // TODO -> set token in localstorage
+
+      // TODO -> redirect to chat if user is in a company
+
       navigate('/chat')
     },
     onError: (error) => {
-      console.log(error.message)
+      // handle status code errors
+      if (error.response.status === 404) {
+        console.log('Usuario no encontrado')
+      }
+      if (error.response.status === 401) {
+        console.log('Contraseña incorrecta')
+      }
     }
   })
 
@@ -34,6 +57,9 @@ const LoginForm = () => {
     } catch (error) {
       console.log(error.message)
     }
+
+    // Reset formik form
+    actions.resetForm()
   }
 
   return (
